@@ -12,7 +12,7 @@
 
 ## 포맷 전에 백업하기
 
-프로젝트와 함께 생성된 `han-youngtak-portfolio-backup.zip` 파일을 외장 저장장치나 클라우드에 복사하세요. ZIP에는 소스, 이미지, 정적 사이트, 배포 설정이 들어 있으며 용량이 큰 설치 파일은 제외되어 있습니다.
+프로젝트와 함께 생성된 `han-youngtak-portfolio-backup.zip` 파일을 외장 저장장치나 클라우드에 복사하세요. ZIP에는 소스, 이미지, 정적 사이트, 배포 설정이 들어 있으며 용량이 큰 설치 파일과 Git 작업 이력은 제외되어 있습니다.
 
 현재 폴더 자체를 복사해도 됩니다. 다만 Windows 탐색기에서 숨김 파일 표시를 켜면 `.github`, `.openai`, `.gitignore` 같은 설정 파일도 함께 복사되는지 확인하기 쉽습니다.
 
@@ -54,22 +54,27 @@ https://github.com/YTAK99/portfolio
 
 ### 2-A. GitHub Desktop으로 올리기
 
+이 방법은 `.git` 폴더까지 포함해 `portfolio` 폴더 전체를 복사한 경우에 사용합니다.
+
 1. GitHub Desktop에서 `File > Add local repository`를 선택합니다.
 2. 이 `portfolio` 폴더를 선택합니다.
 3. `Publish repository`를 누릅니다.
 4. 저장소 이름을 `portfolio`로 지정하고 공개 저장소로 게시합니다.
 
-### 2-B. 터미널로 올리기
+### 2-B. 백업 ZIP을 풀어서 터미널로 올리기
 
-GitHub에서 빈 저장소를 만든 후 이 폴더에서 실행합니다.
+GitHub에서 빈 저장소를 만든 후 ZIP을 푼 폴더에서 실행합니다.
 
 ```bash
+git init
+git add .
+git commit -m "한영탁 포트폴리오 최초 등록"
 git remote add origin https://github.com/YTAK99/portfolio.git
 git branch -M main
 git push -u origin main
 ```
 
-`remote origin already exists`라는 메시지가 나오면 다음처럼 기존 주소를 교체합니다.
+`.git` 폴더까지 포함해 프로젝트 폴더 자체를 복사했다면 `git init`, `git add`, `git commit`은 생략해도 됩니다. `remote origin already exists`라는 메시지가 나오면 다음처럼 기존 주소를 교체합니다.
 
 ```bash
 git remote set-url origin https://github.com/YTAK99/portfolio.git
