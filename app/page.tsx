@@ -318,7 +318,7 @@ export default function Home() {
                   Live site <ArrowIcon />
                 </a>
                 <a
-                  href="https://github.com/YTAK99"
+                  href="https://github.com/YTAK99/Journey-Connect"
                   target="_blank"
                   rel="noreferrer"
                 >
