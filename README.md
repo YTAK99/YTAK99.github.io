@@ -10,9 +10,10 @@
 ```
 
 ## 학력
+- 배재고등학교 졸업(2015~2018)
 - 경기과학기술대학교 전자공학과 졸업(2019~2023)
 - 고려대학교 지구환경과학과/정보보호 융합전공 졸업(2023~2026)
 
 ## 주요 프로젝트
-**[ClassQ]**(https://github.com/YTAK99/classQ)
-**[Journey-Connect]**(https://github.com/YTAK99/Journey-Connect)
+- **[ClassQ]**(https://github.com/YTAK99/classQ)
+- **[Journey-Connect]**(https://github.com/YTAK99/Journey-Connect)
