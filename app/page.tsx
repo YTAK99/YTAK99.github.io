@@ -1,3 +1,5 @@
+import { ScrollReveal } from "./scroll-reveal";
+
 const journeyStack = [
   "Java",
   "Spring Boot",
@@ -6,6 +8,7 @@ const journeyStack = [
   "PostGIS",
   "Docker",
   "AWS EC2",
+  "Oracle Cloud",
   "Nginx",
 ];
 
@@ -17,6 +20,15 @@ const classQStack = [
   "Docker",
   "Nginx",
   "Figma",
+];
+
+const iotStack = [
+  "Arduino",
+  "C++",
+  "Bluetooth",
+  "I2C",
+  "MIT App Inventor",
+  "AutoCAD",
 ];
 
 const stackGroups = [
@@ -87,10 +99,10 @@ function ProjectPlaceholder({
   items: string[];
 }) {
   return (
-    <div className="project-placeholder" aria-label={`${title} 자료 추가 예정`}>
+    <div className="project-placeholder" aria-label={title} data-reveal>
       <div className="placeholder-topline">
         <span>{index}</span>
-        <span>MEDIA SLOT</span>
+        <span>PROJECT PREVIEW</span>
       </div>
       <div className="placeholder-copy">
         <p>{title}</p>
@@ -107,9 +119,101 @@ function ProjectPlaceholder({
   );
 }
 
+function ProjectMedia({
+  index,
+  label,
+  logoSrc,
+  logoAlt,
+  isDocument = false,
+  imageHref,
+  imageLinkLabel,
+  diagramSrc,
+  diagramAlt,
+  previewSrc,
+  previewAlt,
+}: {
+  index: string;
+  label: string;
+  logoSrc: string;
+  logoAlt: string;
+  isDocument?: boolean;
+  imageHref?: string;
+  imageLinkLabel?: string;
+  diagramSrc?: string;
+  diagramAlt?: string;
+  previewSrc?: string;
+  previewAlt?: string;
+}) {
+  return (
+    <figure
+      className={`project-media ${diagramSrc ? "project-media-with-diagram" : ""}`}
+      data-reveal
+    >
+      <div className="project-media-topline">
+        <span>{index}</span>
+        <span>{label}</span>
+      </div>
+      <div
+        className={`project-logo-wrap ${isDocument ? "project-document-wrap" : ""}`}
+      >
+        {imageHref ? (
+          <a
+            className="project-image-link"
+            href={imageHref}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`${logoAlt} 크게 보기`}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              className={`project-logo ${isDocument ? "project-document" : ""}`}
+              src={logoSrc}
+              alt={logoAlt}
+            />
+            <span>{imageLinkLabel ?? "이미지 크게 보기"} <ArrowIcon /></span>
+          </a>
+        ) : (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            className="project-logo"
+            src={logoSrc}
+            alt={logoAlt}
+          />
+        )}
+      </div>
+      {diagramSrc && diagramAlt ? (
+        <div className="project-flow">
+          <a
+            className="project-diagram-link"
+            href={diagramSrc}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`${diagramAlt} 크게 보기`}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="project-diagram" src={diagramSrc} alt={diagramAlt} />
+          </a>
+          {previewSrc && previewAlt ? (
+            <a
+              className="project-preview-link"
+              href={previewSrc}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${previewAlt} 크게 보기`}
+            >
+              실제 화면 보기 <ArrowIcon />
+            </a>
+          ) : null}
+        </div>
+      ) : null}
+    </figure>
+  );
+}
+
 export default function Home() {
   return (
     <main>
+      <ScrollReveal />
       <header className="site-header">
         <a className="wordmark" href="#top" aria-label="맨 위로 이동">
           <span className="wordmark-dot" aria-hidden="true" />
@@ -169,25 +273,10 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="hero-portrait-wrap">
-          <div className="portrait-frame">
-            <img
-              src="/profile.jpg"
-              alt="풀스택 개발자 한영탁 프로필 사진"
-              className="portrait"
-            />
-            <div className="portrait-label">
-              <span>한영탁</span>
-              <span>Han YoungTak</span>
-            </div>
-          </div>
-          <div className="availability-card">
-            <span className="status-dot" aria-hidden="true" />
-            <p>
-              <strong>READY TO BUILD</strong>
-              <span>새로운 기회를 찾고 있습니다.</span>
-            </p>
-          </div>
+        <div className="hero-capabilities" aria-label="개발 범위">
+          <span>01 · FRONTEND</span>
+          <span>02 · BACKEND</span>
+          <span>03 · INFRA</span>
         </div>
 
         <div className="hero-index" aria-hidden="true">
@@ -196,9 +285,9 @@ export default function Home() {
       </section>
 
       <section className="intro section-shell" id="about">
-        <div className="section-heading">
+        <div className="section-heading" data-reveal>
           <p className="eyebrow">ABOUT ME · 02</p>
-          <h2>기능을 만드는 사람에서, 흐름을 연결하는 사람으로.</h2>
+          <h2>기능 구현을 넘어, 서비스 전체의 흐름을 연결합니다.</h2>
         </div>
         <div className="intro-grid">
           <p className="intro-lead">
@@ -213,53 +302,39 @@ export default function Home() {
               프론트엔드, 백엔드, 인프라를 두루 경험했습니다.
             </p>
             <p>
-              아직 익숙하지 않은 기술은 자료를 확인하며 정확하게 적용하고,
-              구현한 결과는 빌드와 테스트, 실제 접속을 통해 검증합니다.
-              모르는 것을 숨기기보다 끝까지 이해해 내 것으로 만드는 개발자를
-              지향합니다.
+              새로운 기술은 구조와 제약 조건을 먼저 확인한 뒤 적용합니다.
+              구현한 결과는 빌드와 테스트, 실제 접속을 통해 검증하며 끝까지
+              동작하는 결과물로 완성합니다.
             </p>
-          </div>
-        </div>
-        <div className="numbers" aria-label="주요 경험 수치">
-          <div>
-            <strong>02</strong>
-            <span>Web Projects</span>
-          </div>
-          <div>
-            <strong>06</strong>
-            <span>Months Bootcamp</span>
-          </div>
-          <div>
-            <strong>65%</strong>
-            <span>Journey Contribution</span>
-          </div>
-          <div>
-            <strong>70%</strong>
-            <span>ClassQ Contribution</span>
           </div>
         </div>
       </section>
 
       <section className="work section-shell" id="work">
-        <div className="section-kicker-row">
+        <div className="section-kicker-row" data-reveal>
           <div className="section-heading">
             <p className="eyebrow">SELECTED WORK · 03</p>
-            <h2>서로 다른 문제를, 끝까지 동작하는 결과물로.</h2>
+            <h2>서로 다른 문제를, 실제로 동작하는 결과물로 해결했습니다.</h2>
           </div>
           <p className="section-note">기여한 범위와 판단 과정을 중심으로 정리했습니다.</p>
         </div>
 
         <article className="project project-featured">
-          <ProjectPlaceholder
+          <ProjectMedia
             index="01"
-            title="Journey Connect 대표 자료 추가 예정"
-            items={["서비스 대표 화면", "크루·루트 기능 시연", "발표 또는 시연 영상"]}
+            label="SERVICE FLOW"
+            logoSrc="/projects/journey-connect-logo.svg"
+            logoAlt="Journey Connect 로고"
+            diagramSrc="/projects/journey-connect-mechanism.png"
+            diagramAlt="Journey Connect 서비스 흐름"
+            previewSrc="/projects/journey-connect-feed.png"
+            previewAlt="Journey Connect 실제 서비스 화면"
           />
-          <div className="project-content">
+          <div className="project-content" data-reveal data-reveal-delay="02">
             <div className="project-meta">
               <span>4인 팀</span>
               <span>2개월</span>
-              <span>기여도 약 65%</span>
+              <span>기획 · Full-stack · Infra</span>
             </div>
             <p className="project-type">TRAVEL COLLABORATION PLATFORM</p>
             <h3>Journey Connect</h3>
@@ -272,10 +347,11 @@ export default function Home() {
             <div className="case-grid">
               <div>
                 <span className="case-number">01</span>
-                <h4>크루와 루트의 연결</h4>
+                <h4>사용자 흐름을 연결한 알고리즘</h4>
                 <p>
-                  동행자를 모집하는 크루 기능과 여행 경로를 어떻게 연결할지
-                  고민하고, 모집·관리·채팅과 루트 탐색 흐름을 구현했습니다.
+                  크루 모집과 여행 루트를 분리된 기능으로 두지 않고, 사용자가
+                  동행자를 찾고 일정을 함께 만드는 흐름이 이어지도록 알고리즘과
+                  기능 구조를 설계했습니다.
                 </p>
               </div>
               <div>
@@ -291,8 +367,9 @@ export default function Home() {
                 <span className="case-number">03</span>
                 <h4>운영 환경까지 직접</h4>
                 <p>
-                  AWS EC2, Docker, Nginx, 도메인, HTTPS와 배포 워크플로를
-                  전담해 팀의 결과물을 실제 접속 가능한 서비스로 만들었습니다.
+                  AWS EC2와 Oracle Cloud에 서비스를 이중 배포하고 Docker,
+                  Nginx, 도메인, HTTPS와 배포 워크플로를 전담했습니다. Oracle
+                  환경은 포트폴리오 시연을 위해 상시 운영하고 있습니다.
                 </p>
               </div>
             </div>
@@ -303,6 +380,23 @@ export default function Home() {
               ))}
             </div>
 
+            <aside className="demo-account" aria-label="Journey Connect 시연 계정">
+              <div>
+                <strong>DEMO ACCOUNT</strong>
+                <span>시연용 계정</span>
+              </div>
+              <dl>
+                <div>
+                  <dt>ID</dt>
+                  <dd>demo@jc.com</dd>
+                </div>
+                <div>
+                  <dt>PW</dt>
+                  <dd>demo2026!</dd>
+                </div>
+              </dl>
+            </aside>
+
             <div className="project-footer">
               <div className="chip-list">
                 {journeyStack.map((skill) => (
@@ -311,7 +405,7 @@ export default function Home() {
               </div>
               <div className="project-links">
                 <a
-                  href="https://journey-connect.kro.kr/"
+                  href="https://journey-connect2.kro.kr/"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -326,18 +420,15 @@ export default function Home() {
                 </a>
               </div>
             </div>
-            <p className="demo-note">
-              채용 검토용 테스트 계정 준비 예정 · 개인 계정 정보는 공개하지 않습니다.
-            </p>
           </div>
         </article>
 
         <article className="project project-secondary">
-          <div className="project-content">
+          <div className="project-content" data-reveal>
             <div className="project-meta">
               <span>4인 팀</span>
               <span>3주</span>
-              <span>기여도 약 70%</span>
+              <span>UI 설계 · Django · 배포</span>
             </div>
             <p className="project-type">ROLE-BASED Q&amp;A SERVICE</p>
             <h3>ClassQ</h3>
@@ -355,13 +446,30 @@ export default function Home() {
                 </p>
               </div>
               <div>
-                <strong>FULL CYCLE</strong>
+                <strong>DJANGO DELIVERY</strong>
                 <p>
-                  질문·답변, 검색·태그, 상태 관리와 Google OAuth를 구현하고
-                  PostgreSQL, Docker, Nginx 기반 환경까지 연결했습니다.
+                  환경변수와 CORS를 운영 환경에 맞게 조정하고 Google 로그인을
+                  연동했습니다. Django, PostgreSQL, Docker, Nginx 구성을 직접
+                  배포해 실제 접속 가능한 서비스로 완성했습니다.
                 </p>
               </div>
             </div>
+            <aside className="demo-account" aria-label="ClassQ 시연 계정">
+              <div>
+                <strong>DEMO ACCOUNT</strong>
+                <span>시연용 계정</span>
+              </div>
+              <dl>
+                <div>
+                  <dt>ID</dt>
+                  <dd>demo</dd>
+                </div>
+                <div>
+                  <dt>PW</dt>
+                  <dd>demo2026!</dd>
+                </div>
+              </dl>
+            </aside>
             <div className="project-footer">
               <div className="chip-list">
                 {classQStack.map((skill) => (
@@ -370,29 +478,45 @@ export default function Home() {
               </div>
               <div className="project-links">
                 <a
+                  href="https://classq.pythonanywhere.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Live site <ArrowIcon />
+                </a>
+                <a
                   href="https://github.com/YTAK99/classQ"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Repository <ArrowIcon />
+                  GitHub <ArrowIcon />
                 </a>
               </div>
             </div>
           </div>
-          <ProjectPlaceholder
+          <ProjectMedia
             index="02"
-            title="ClassQ 대표 자료 추가 예정"
-            items={["Figma 초기안", "학생 질문 화면", "강사 대시보드 화면"]}
+            label="STATE FLOW"
+            logoSrc="/projects/classq-logo.png"
+            logoAlt="ClassQ 로고"
+            diagramSrc="/projects/classq-state-sequence.png"
+            diagramAlt="ClassQ 질문 상세 페이지 상태 변경 시퀀스 다이어그램"
+            previewSrc="/projects/classq-screen.png"
+            previewAlt="ClassQ 실제 서비스 화면"
           />
         </article>
 
         <article className="project project-iot">
-          <ProjectPlaceholder
+          <ProjectMedia
             index="03"
-            title="IoT Home 기록 자료 추가 예정"
-            items={["완성된 주택 모형", "PDLC 전환 시연", "모바일 앱 제어 영상"]}
+            label="PROJECT REPORT"
+            logoSrc="/projects/iot-home-report.png"
+            logoAlt="아두이노 기반 스마트 IoT 홈 프로젝트 보고서"
+            isDocument
+            imageHref="/projects/iot-home-report.png"
+            imageLinkLabel="프로젝트 보고서 크게 보기"
           />
-          <div className="project-content">
+          <div className="project-content" data-reveal data-reveal-delay="02">
             <div className="project-meta">
               <span>졸업 작품</span>
               <span>공동 기여</span>
@@ -401,23 +525,44 @@ export default function Home() {
             <p className="project-type">HARDWARE × SOFTWARE</p>
             <h3>IoT Home System</h3>
             <p className="project-summary">
-              직접 제작한 주택 모형에 Arduino 기반 제어 장치, 맞춤 설계한
-              PDLC와 MIT App Inventor 애플리케이션을 결합해 실제로 작동하는
-              스마트홈 환경을 구현했습니다.
+              Arduino 기반 제어 장치와 MIT App Inventor 애플리케이션을
+              Bluetooth로 연동한 스마트홈 시제품입니다. 조명 제어, 현관문·커튼
+              구동, PDLC 상태 전환과 가스 감지 알림 기능을 실제 주택 모형에서
+              구현하고 검증했습니다.
             </p>
-            <blockquote>
-              “낯선 문제도 여러 방법을 시도하며 끝까지 동작하는 결과물로 만든 경험”
-            </blockquote>
+            <div className="project-points">
+              <div>
+                <strong>DEVICE CONTROL</strong>
+                <p>
+                  애플리케이션과 Arduino를 Bluetooth로 연결해 조명, 현관문,
+                  커튼과 PDLC를 제어하는 사용자 흐름을 구성했습니다.
+                </p>
+              </div>
+              <div>
+                <strong>PHYSICAL PROTOTYPE</strong>
+                <p>
+                  AutoCAD로 주택 내부 구조를 설계하고 센서, 모터, 배선을 통합해
+                  가스 감지 시 부저가 작동하는 실제 시제품을 완성했습니다.
+                </p>
+              </div>
+            </div>
             <div className="award-line">
               <span>BRONZE AWARD</span>
               <p>특허기술박람회 동상</p>
+            </div>
+            <div className="project-footer project-footer-iot">
+              <div className="chip-list">
+                {iotStack.map((skill) => (
+                  <span key={skill}>{skill}</span>
+                ))}
+              </div>
             </div>
           </div>
         </article>
       </section>
 
       <section className="stack section-shell" id="stack">
-        <div className="section-kicker-row">
+        <div className="section-kicker-row" data-reveal>
           <div className="section-heading">
             <p className="eyebrow light">TECH STACK · 04</p>
             <h2>숙련도 숫자보다, 사용한 맥락으로 말합니다.</h2>
@@ -428,7 +573,12 @@ export default function Home() {
         </div>
         <div className="stack-grid">
           {stackGroups.map((group) => (
-            <article key={group.number} className="stack-card">
+            <article
+              key={group.number}
+              className="stack-card"
+              data-reveal
+              data-reveal-delay={group.number}
+            >
               <div className="stack-card-top">
                 <span>{group.number}</span>
                 <p>{group.eyebrow}</p>
@@ -446,7 +596,7 @@ export default function Home() {
       </section>
 
       <section className="process section-shell" aria-labelledby="process-title">
-        <div className="process-title-wrap">
+        <div className="process-title-wrap" data-reveal>
           <p className="eyebrow">HOW I WORK · 05</p>
           <h2 id="process-title">AI를 활용하되, 판단과 검증은 직접.</h2>
           <p>
@@ -455,28 +605,28 @@ export default function Home() {
           </p>
         </div>
         <ol className="process-list">
-          <li>
+          <li data-reveal>
             <span>01</span>
             <div>
               <h3>맥락부터 확인</h3>
               <p>현재 코드, API 계약, 버전과 제약 조건을 먼저 확인합니다.</p>
             </div>
           </li>
-          <li>
+          <li data-reveal data-reveal-delay="02">
             <span>02</span>
             <div>
               <h3>작은 단위로 구현</h3>
               <p>작업을 나누고 변경 범위를 좁혀 원인을 추적할 수 있게 만듭니다.</p>
             </div>
           </li>
-          <li>
+          <li data-reveal data-reveal-delay="03">
             <span>03</span>
             <div>
               <h3>동작으로 검증</h3>
               <p>빌드, 테스트, 로그와 실제 화면을 통해 생성 결과를 확인합니다.</p>
             </div>
           </li>
-          <li>
+          <li data-reveal data-reveal-delay="04">
             <span>04</span>
             <div>
               <h3>운영 정보는 분리</h3>
@@ -487,12 +637,12 @@ export default function Home() {
       </section>
 
       <section className="background section-shell" id="background">
-        <div className="section-heading">
+        <div className="section-heading" data-reveal>
           <p className="eyebrow">BACKGROUND · 06</p>
           <h2>기술의 경계를 넓혀온 과정.</h2>
         </div>
         <div className="timeline">
-          <article className="timeline-item">
+          <article className="timeline-item" data-reveal>
             <div className="timeline-date">2026.03.23 — 09.14</div>
             <div className="timeline-copy">
               <p className="timeline-type">TRAINING</p>
@@ -503,7 +653,7 @@ export default function Home() {
               </p>
             </div>
           </article>
-          <article className="timeline-item">
+          <article className="timeline-item" data-reveal>
             <div className="timeline-date">FOUNDATION</div>
             <div className="timeline-copy">
               <p className="timeline-type">ELECTRONICS &amp; SECURITY</p>
@@ -515,29 +665,29 @@ export default function Home() {
               </p>
             </div>
           </article>
-          <article className="timeline-item">
+          <article className="timeline-item" data-reveal>
             <div className="timeline-date">CONTINUOUS</div>
             <div className="timeline-copy">
               <p className="timeline-type">SECURITY LABS</p>
-              <h3>보안 실습 기록 정리 중</h3>
+              <h3>보안 학습 기록</h3>
               <p>
                 악성코드 정적·동적 분석, Format String 취약점 공격과 방어,
                 NSL-KDD 기반 침입 탐지, NTFS 로그 포렌식 기록을 공개 가능한
                 형태로 정리할 예정입니다.
               </p>
-              <div className="preparing-badge">CASE STUDY · PREPARING</div>
+              <div className="preparing-badge">CASE STUDY · IN PROGRESS</div>
             </div>
           </article>
         </div>
       </section>
 
       <section className="contact section-shell" id="contact">
-        <div className="contact-copy">
+        <div className="contact-copy" data-reveal>
           <p className="eyebrow light">CONTACT · 07</p>
           <h2>
-            함께 만들 이야기가 있다면,
+            좋은 서비스를 함께 만들 팀을,
             <br />
-            편하게 연락해주세요.
+            기다리고 있습니다.
           </h2>
           <p>
             배우는 속도와 끝까지 구현하는 실행력으로 팀의 서비스에
@@ -568,11 +718,6 @@ export default function Home() {
             <strong>blog.naver.com/ytak99</strong>
             <ArrowIcon />
           </a>
-          <div className="resume-slot">
-            <span>Resume</span>
-            <strong>PDF 파일 추가 예정</strong>
-            <span aria-hidden="true">＋</span>
-          </div>
         </div>
       </section>
 

@@ -1,6 +1,5 @@
 import { cp, copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 
-const projectRoot = new URL("../", import.meta.url);
 const outputRoot = new URL("../github-pages/", import.meta.url);
 const distClient = new URL("../dist/client/", import.meta.url);
 const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -51,6 +50,9 @@ await mkdir(outputRoot, { recursive: true });
 
 await Promise.all([
   cp(new URL("assets/", distClient), new URL("assets/", outputRoot), {
+    recursive: true,
+  }),
+  cp(new URL("projects/", distClient), new URL("projects/", outputRoot), {
     recursive: true,
   }),
   copyFile(new URL("profile.jpg", distClient), new URL("profile.jpg", outputRoot)),

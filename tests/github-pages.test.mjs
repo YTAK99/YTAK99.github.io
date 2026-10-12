@@ -22,7 +22,12 @@ test("GitHub Pages export is complete and portable", async () => {
   assert.equal(fallback, html);
 
   assert.ok(files.includes(".nojekyll"));
-  await access(new URL("profile.jpg", outputRoot));
+  await access(new URL("projects/journey-connect-mechanism.png", outputRoot));
+  await access(new URL("projects/journey-connect-feed.png", outputRoot));
+  await access(new URL("projects/classq-logo.png", outputRoot));
+  await access(new URL("projects/classq-state-sequence.png", outputRoot));
+  await access(new URL("projects/classq-screen.png", outputRoot));
+  await access(new URL("projects/iot-home-report.png", outputRoot));
   await access(new URL("og.png", outputRoot));
   await access(new URL("favicon.svg", outputRoot));
 
