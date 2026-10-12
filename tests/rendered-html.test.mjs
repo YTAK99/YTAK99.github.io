@@ -49,6 +49,9 @@ test("server-renders the completed portfolio", async () => {
   assert.match(html, /iot-home-report\.png/);
   assert.match(html, /MIT App Inventor/);
   assert.match(html, /PHYSICAL PROTOTYPE/);
+  assert.match(html, /Group-Based File Access Control/);
+  assert.match(html, /OperatingSystem_TeamB/);
+  assert.match(html, /MY CONTRIBUTION · auth\.py/);
   assert.match(html, /FULL-STACK DEVELOPER/);
   assert.match(html, /og\.png/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);

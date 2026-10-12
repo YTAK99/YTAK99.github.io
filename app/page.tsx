@@ -675,7 +675,36 @@ export default function Home() {
                 NSL-KDD 기반 침입 탐지, NTFS 로그 포렌식 기록을 공개 가능한
                 형태로 정리할 예정입니다.
               </p>
-              <div className="preparing-badge">CASE STUDY · IN PROGRESS</div>
+              <div className="security-project">
+                <div className="security-project-heading">
+                  <div>
+                    <span>OPERATING SYSTEM · 4인 팀</span>
+                    <h4>Group-Based File Access Control</h4>
+                  </div>
+                  <a
+                    className="security-project-link"
+                    href="https://github.com/Choi-Suhyeon/OperatingSystem_TeamB"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    GitHub <ArrowIcon />
+                  </a>
+                </div>
+                <p>
+                  교수·조교·학생처럼 역할이 다른 사용자의 파일 접근 권한을
+                  그룹 단위로 관리하는 시스템입니다. 사용자와 그룹, 파일별
+                  읽기·쓰기·실행 권한을 연결하고 LD_PRELOAD 기반 후킹으로
+                  허가되지 않은 접근을 차단하도록 구성했습니다.
+                </p>
+                <div className="security-contribution">
+                  <strong>MY CONTRIBUTION · auth.py</strong>
+                  <p>
+                    그룹별 파일 권한을 할당하고, 특정 파일의 권한을 확인하거나
+                    디렉터리 내 전체 권한 목록을 조회하는 기능을 구현했습니다.
+                  </p>
+                </div>
+              </div>
+              <div className="preparing-badge">MORE CASE STUDIES · IN PROGRESS</div>
             </div>
           </article>
         </div>

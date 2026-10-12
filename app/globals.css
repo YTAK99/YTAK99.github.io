@@ -1079,6 +1079,67 @@ img {
   letter-spacing: 0.13em;
 }
 
+.security-project {
+  display: grid;
+  gap: 22px;
+  margin-top: 30px;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.security-project-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.security-project-heading span,
+.security-contribution strong {
+  color: var(--teal);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+}
+
+.security-project-heading h4 {
+  margin: 9px 0 0;
+  font-size: clamp(20px, 2vw, 28px);
+  letter-spacing: -0.035em;
+}
+
+.security-project > p,
+.security-contribution p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.security-project-link {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 8px;
+  align-items: center;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--ink);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.security-project-link:hover {
+  color: var(--teal);
+}
+
+.security-contribution {
+  display: grid;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
 .contact {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
@@ -1469,6 +1530,10 @@ img {
   .timeline-item {
     grid-template-columns: 1fr;
     gap: 22px;
+  }
+
+  .security-project-heading {
+    flex-direction: column;
   }
 
   .contact-links a,
